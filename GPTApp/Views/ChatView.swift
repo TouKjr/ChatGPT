@@ -22,7 +22,7 @@ struct ChatView: View {
                 sendButton
             }
             
-           
+            
         }
     }
 }
@@ -74,28 +74,29 @@ extension ChatView {
                 withAnimation {
                     proxy.scrollTo(vm.chatMessages.last?.id)
                 }
-            
+                
             }
             .onTapGesture {
                 self.endEditing()
             }
             .overlay(alignment: .bottomTrailing, content: {
-                        Button {
-                            
-                            withAnimation {
-                                proxy.scrollTo(vm.chatMessages.last?.id)
-                            }
-                            
-                        } label: {
-                            Image(systemName: "arrow.down")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 14, height: 14)
-                                .foregroundColor(Color(Constants.chatTextColors).opacity(0.85))
-                                .frame(width: 24, height: 24)
-                                .background(Color(Constants.chatEnviromentColors).opacity(0.85))
-                                .cornerRadius(100)
-                        }
+                Button {
+                    
+                    withAnimation {
+                        proxy.scrollTo(vm.chatMessages.last?.id)
+                    }
+                    
+                } label: {
+                    Image(systemName: "arrow.down")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 14, height: 14)
+                        .foregroundColor(Color(Constants.chatTextColors).opacity(0.85))
+                        .frame(width: 24, height: 24)
+                        .background(Color(Constants.chatEnviromentColors).opacity(0.85))
+                        .cornerRadius(100)
+                }
+                
             })
             .padding()
         }
@@ -131,9 +132,9 @@ extension ChatView {
     }
     
     
-      private func endEditing() {
-          UIApplication.shared.endEditing()
-      }
+    private func endEditing() {
+        UIApplication.shared.endEditing()
+    }
     
 }
 
