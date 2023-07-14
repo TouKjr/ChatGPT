@@ -1,2 +1,2 @@
 # GPTApp
-##Don't forget to paste your API Key.
+## Don't forget to paste your API Key.
