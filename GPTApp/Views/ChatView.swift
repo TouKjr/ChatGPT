@@ -11,19 +11,23 @@ struct ChatView: View {
     
     @EnvironmentObject private var vm: ChatViewModel
     
-    
-    
     var body: some View {
         
-        VStack {
-            chatWindow
-            HStack{
-                userTextField
-                sendButton
+        ZStack{
+            VStack {
+                
+                chatWindow
+                
+                HStack{
+                    userTextField
+                    sendButton
+                }
+                .frame(height: 120)
+                .padding(.bottom, 30)
+        
             }
-            
-            
         }
+        
     }
 }
 
@@ -63,47 +67,63 @@ extension ChatView {
         ScrollViewReader{ proxy in
             
             ScrollView {
+                
                 LazyVStack{
                     ForEach(vm.chatMessages, id: \.id) { message in
                         messageView(message: message).id(message.id)
                     }
-                }
+                    
+                }.background(GeometryReader { currentUserPosition -> Color in
+                    
+                    DispatchQueue.main.async {
+                        
+                        if vm.offset != -currentUserPosition.frame(in: .named("scroll")).origin.y {
+                            
+                            vm.offset = -currentUserPosition.frame(in: .named("scroll")).origin.y
+                            vm.downButtonOnScreenLogic()
+                            
+                        }
+                        
+                        
+                    }
+                    
+                    return Color.clear
+                })
                 
             }
+            
+            .coordinateSpace(name: "scroll")
             .onChange(of: vm.chatMessages.count) { _ in
-                withAnimation {
-                    proxy.scrollTo(vm.chatMessages.last?.id)
-                }
+                
+                scrollToBottomOfChat(proxy)
+                
+                
+                vm.currentBottomOfTheChat = vm.offset
+                
                 
             }
             .onTapGesture {
                 self.endEditing()
             }
+            
             .overlay(alignment: .bottomTrailing, content: {
                 Button {
                     
-                    withAnimation {
-                        proxy.scrollTo(vm.chatMessages.last?.id)
-                    }
+                    scrollToBottomOfChat(proxy)
                     
                 } label: {
-                    Image(systemName: "arrow.down")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 14, height: 14)
-                        .foregroundColor(Color(Constants.chatTextColors).opacity(0.85))
-                        .frame(width: 24, height: 24)
-                        .background(Color(Constants.chatEnviromentColors).opacity(0.85))
-                        .cornerRadius(100)
+                    downArrowImageView
                 }
+                .disabled(vm.downButtonDisabled)
                 
             })
             .padding()
+            
         }
     }
     
     
-    private var userTextField:some View{
+    private var userTextField: some View{
         
         TextEditor(text: $vm.messageText)
             .frame(width: 260, height: 150)
@@ -114,11 +134,13 @@ extension ChatView {
             })
             .font(.subheadline)
             .padding()
+        
     }
     
     
     private var sendButton: some View{
         Button {
+            
             self.endEditing()
             vm.sendMessage()
             
@@ -135,6 +157,26 @@ extension ChatView {
     private func endEditing() {
         UIApplication.shared.endEditing()
     }
+    
+    
+    private func scrollToBottomOfChat(_ proxy: ScrollViewProxy){
+        withAnimation {
+            proxy.scrollTo(vm.chatMessages.last?.id, anchor: .bottom)
+        }
+    }
+    
+    private var downArrowImageView: some View {
+        Image(systemName: "arrow.down")
+            .resizable()
+            .scaledToFit()
+            .frame(width: 18, height: 18)
+            .foregroundColor(Color(Constants.chatTextColors).opacity(vm.downButtonOpacity))
+            .frame(width: 33, height: 33)
+            .background(Color(Constants.chatEnviromentColors).opacity(vm.downButtonOpacity))
+            .cornerRadius(100)
+            .shadow(radius: 10)
+    }
+    
     
 }
 
