@@ -12,6 +12,10 @@ class ChatViewModel: ObservableObject {
     
     @Published var chatMessages: [ChatMessage] = []
     @Published var messageText: String = ""
+    @Published var offset = CGFloat.zero
+    @Published var currentBottomOfTheChat = CGFloat.zero
+    @Published var downButtonOpacity: Double = 0.0 
+    @Published var downButtonDisabled: Bool = true
     
     let openAIService = OpenAIService()
     
@@ -46,5 +50,33 @@ class ChatViewModel: ObservableObject {
         ChatMessage(id: UUID().uuidString, content: "Sample message from user", dateCreated: Date(), role: .user),
         ChatMessage(id: UUID().uuidString, content: "Sample message from gpt", dateCreated: Date(), role: .assistant)
     ]
+    
+    
+    
+    func downButtonOnScreenLogic() {
+        
+        DispatchQueue.global().async {
+            
+            if self.offset < self.currentBottomOfTheChat {
+                
+                DispatchQueue.main.async {
+                    self.downButtonOpacity = 0.85
+                    self.downButtonDisabled = false
+                }
+                
+                
+            }else{
+                
+                DispatchQueue.main.async {
+                    self.downButtonOpacity = 0.0
+                    self.downButtonDisabled = true
+                }
+    
+            }
+            
+        }
+    }
+    
+    
 }
 
