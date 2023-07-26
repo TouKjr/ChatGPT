@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 enum SenderRole: String, Codable {
     case system

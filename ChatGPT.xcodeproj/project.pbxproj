@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		255524D62A66A4FC00371A40 /* ChatViewRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255524D52A66A4FC00371A40 /* ChatViewRealm.swift */; };
+		255524DA2A66AAF100371A40 /* ChatMessageViewRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255524D92A66AAF100371A40 /* ChatMessageViewRealm.swift */; };
+		256293D62A66A2D5009C4BED /* ChatMessageRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256293D52A66A2D5009C4BED /* ChatMessageRealm.swift */; };
+		256293D92A66A3BF009C4BED /* SenderRoleRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256293D82A66A3BF009C4BED /* SenderRoleRealm.swift */; };
 		259A409D2A507A1E003715E9 /* ChatGPT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259A409C2A507A1E003715E9 /* ChatGPT.swift */; };
 		259A40A12A507A20003715E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 259A40A02A507A20003715E9 /* Assets.xcassets */; };
 		259A40A42A507A20003715E9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 259A40A32A507A20003715E9 /* Preview Assets.xcassets */; };
@@ -26,6 +30,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		255524D52A66A4FC00371A40 /* ChatViewRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewRealm.swift; sourceTree = "<group>"; };
+		255524D92A66AAF100371A40 /* ChatMessageViewRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageViewRealm.swift; sourceTree = "<group>"; };
+		256293D52A66A2D5009C4BED /* ChatMessageRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageRealm.swift; sourceTree = "<group>"; };
+		256293D82A66A3BF009C4BED /* SenderRoleRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SenderRoleRealm.swift; sourceTree = "<group>"; };
 		259A40992A507A1E003715E9 /* ChatGPT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatGPT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		259A409C2A507A1E003715E9 /* ChatGPT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPT.swift; sourceTree = "<group>"; };
 		259A40A02A507A20003715E9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -56,6 +64,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		255524D42A66A4E500371A40 /* RealmTemporary */ = {
+			isa = PBXGroup;
+			children = (
+				255524D52A66A4FC00371A40 /* ChatViewRealm.swift */,
+				255524D92A66AAF100371A40 /* ChatMessageViewRealm.swift */,
+			);
+			path = RealmTemporary;
+			sourceTree = "<group>";
+		};
+		256293D72A66A3A0009C4BED /* RealmTemporaty */ = {
+			isa = PBXGroup;
+			children = (
+				256293D52A66A2D5009C4BED /* ChatMessageRealm.swift */,
+				256293D82A66A3BF009C4BED /* SenderRoleRealm.swift */,
+			);
+			path = RealmTemporaty;
+			sourceTree = "<group>";
+		};
 		259A40902A507A1E003715E9 = {
 			isa = PBXGroup;
 			children = (
@@ -104,6 +130,7 @@
 				25B6B0542A52C29000A0DF06 /* SenderRole.swift */,
 				25B6B0562A52C2A500A0DF06 /* OpenAIChatResponse.swift */,
 				25B6B0582A52C2B800A0DF06 /* OpenAIChatChoice.swift */,
+				256293D72A66A3A0009C4BED /* RealmTemporaty */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -111,6 +138,7 @@
 		259A40AB2A507A58003715E9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				255524D42A66A4E500371A40 /* RealmTemporary */,
 				259A40AD2A507A99003715E9 /* ChatView.swift */,
 			);
 			path = Views;
@@ -216,8 +244,12 @@
 				259A40B02A507ADE003715E9 /* ChatMessage.swift in Sources */,
 				259A40BA2A50C8C7003715E9 /* OpenAIService.swift in Sources */,
 				259A40BF2A515F22003715E9 /* OpenAIChatBody.swift in Sources */,
+				255524DA2A66AAF100371A40 /* ChatMessageViewRealm.swift in Sources */,
 				259A40AE2A507A99003715E9 /* ChatView.swift in Sources */,
+				255524D62A66A4FC00371A40 /* ChatViewRealm.swift in Sources */,
 				25B6B0552A52C29000A0DF06 /* SenderRole.swift in Sources */,
+				256293D62A66A2D5009C4BED /* ChatMessageRealm.swift in Sources */,
+				256293D92A66A3BF009C4BED /* SenderRoleRealm.swift in Sources */,
 				25B6B0592A52C2B800A0DF06 /* OpenAIChatChoice.swift in Sources */,
 				259A40B72A50C87A003715E9 /* Constants.swift in Sources */,
 				259A40B42A50C598003715E9 /* ChatViewModel.swift in Sources */,
