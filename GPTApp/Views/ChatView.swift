@@ -46,7 +46,7 @@ struct ChatView_Previews: PreviewProvider {
 
 extension ChatView {
     
-    func messageView(message: ChatMessage) -> some View{
+    private func messageView(message: ChatMessage) -> some View{
         HStack{
             if message.role == .user {Spacer()}
             

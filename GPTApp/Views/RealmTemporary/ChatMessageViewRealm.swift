@@ -5,23 +5,36 @@ struct ChatMessageViewRealm: View {
     
     @ObservedRealmObject var chatMessageRealmGroup: ChatMessageRealmGroup
     
-    /// The button to be displayed on the top left.
-    var leadingBarButton: AnyView?
+    @State var messageText: String = ""
+    
+    //    /// The button to be displayed on the top left.
+    //    var leadingBarButton: AnyView?
     
     var body: some View {
-        NavigationView {
-            VStack {
-                // The list shows the items in the realm.
-                List {
-                    ForEach(chatMessageRealmGroup.chatMessagesRealm) { message in
-                        ChatMessageRow(chatMessageRealm: message)
+        ZStack{
+            VStack{
+                ScrollView {
+                    
+                    LazyVStack{
+                        ForEach(chatMessageRealmGroup.chatMessagesRealm) { message in
+                            messageView(message: message).id(message.id)
+                        }
+                        
                     }
+                    
                 }
-                .listStyle(GroupedListStyle())
-                .navigationBarTitle("Items", displayMode: .large)
-                .navigationBarBackButtonHidden(true)
+                .padding()
+                
+                HStack{
+                    userTextField
+                    sendButton
+                }
+                .frame(height: 120)
+                .padding(.bottom, 30)
             }
         }
+        
+        
     }
 }
 
@@ -31,4 +44,53 @@ struct ChatMessageViewRealm_Previews: PreviewProvider {
         let chatMessageRealmGroup = realm.objects(ChatMessageRealmGroup.self)
         ChatMessageViewRealm(chatMessageRealmGroup: chatMessageRealmGroup.first!)
     }
+}
+
+extension ChatMessageViewRealm {
+    private func messageView(message: ChatMessageRealm) -> some View{
+        HStack{
+            if message.role == SenderRole.user.rawValue {Spacer()}
+            
+            
+            Text(message.content)
+                .foregroundColor(message.role == SenderRole.user.rawValue ? .white : Color(Constants.chatEnviromentColors))
+                .padding()
+                .background(message.role == SenderRole.user.rawValue ? .blue.opacity(0.9) : .gray.opacity(0.3))
+                .cornerRadius(16)
+            
+            
+            if message.role == SenderRole.assistant.rawValue {Spacer()}
+        }
+    }
+    
+    
+    private var userTextField: some View{
+        
+        TextEditor(text: $messageText)
+            .frame(width: 260, height: 150)
+            .cornerRadius(12)
+            .overlay(content: {
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(Color(Constants.chatEnviromentColors).opacity(0.45),lineWidth: 5)
+            })
+            .font(.subheadline)
+            .padding()
+        
+    }
+    
+    private var sendButton: some View{
+        Button {
+            
+//            self.endEditing()
+//            vm.sendMessage()
+            
+        } label: {
+            Text("Send")
+                .foregroundColor(Color(Constants.chatTextColors))
+                .padding()
+                .background(Color(Constants.chatEnviromentColors))
+                .cornerRadius(12)
+        }
+    }
+    
 }

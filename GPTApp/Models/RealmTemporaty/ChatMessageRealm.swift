@@ -38,7 +38,7 @@ final class ChatMessageRealmGroup: Object, ObjectKeyIdentifiable {
 
 extension ChatMessageRealm {
     static let chatMessage1 = ChatMessageRealm(value: ["content": "fluffy coasters", "role": "\(SenderRole.user.rawValue)"])
-    static let chatMessage2 = ChatMessageRealm(value: ["content": "sudden cinder block", "role": "\(SenderRole.system.rawValue)"])
+    static let chatMessage2 = ChatMessageRealm(value: ["content": "sudden cinder block", "role": "\(SenderRole.assistant.rawValue)"])
     static let chatMessage3 = ChatMessageRealm(value: ["content": "classy mouse pad", "role": "\(SenderRole.user.rawValue)"])
 }
 

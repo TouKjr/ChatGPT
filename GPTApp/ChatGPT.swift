@@ -13,6 +13,12 @@ struct ChatGPT: App {
         WindowGroup {
             ChatView()
                 .environmentObject(ChatViewModel())
+            
+            
+//            let realm = ChatMessageRealmGroup.previewRealm
+//            let chatMessageRealmGroup = realm.objects(ChatMessageRealmGroup.self)
+//            ChatMessageViewRealm(chatMessageRealmGroup: chatMessageRealmGroup.first!)
+            
         }
     }
 }
