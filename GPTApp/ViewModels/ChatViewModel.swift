@@ -7,34 +7,63 @@
 
 import Foundation
 import SwiftUI
+import RealmSwift
 
 class ChatViewModel: ObservableObject {
     
+    
+    
+    @ObservedRealmObject var chatMessageRealmGroup: ChatMessageRealmGroup
     @Published var chatMessages: [ChatMessage] = []
     @Published var messageText: String = ""
     @Published var offset = CGFloat.zero
     @Published var currentBottomOfTheChat = CGFloat.zero
-    @Published var downButtonOpacity: Double = 0.0 
+    @Published var downButtonOpacity: Double = 0.0
     @Published var downButtonDisabled: Bool = true
     
     let openAIService = OpenAIService()
     
+    init() {
+        
+        let realm = ChatMessageRealmGroup.previewRealm
+        let chatMessageRealmGroupObject = realm.objects(ChatMessageRealmGroup.self)
+        self.chatMessageRealmGroup = chatMessageRealmGroupObject.first!
+        
+    }
+    
+    
     func sendMessage(){
-        let newMessage = ChatMessage(id: UUID().uuidString, content: messageText , dateCreated: Date(), role: .user)
+        
+        
+        // Временно убрал дату создания
+        let newMessage = ChatMessageRealm(value: ["id":"\(UUID().uuidString)","content": "\(messageText)", "role": "\(SenderRole.user)"])
         if messageText != "" {
+            //Очень плохая реализация, не забыть исправить
+            //Ситуация такова, что нужно разобраться с тем, как работает write и возвращение realm и как следствие это исправить, скорее всего нужно ввести имплементацию выше в функции
             
-            chatMessages.append(newMessage)
+            $chatMessageRealmGroup.chatMessagesRealm.append(newMessage)
+            
+            
+            
             messageText = ""
             
             Task{
-                let response = await openAIService.sendMessage(messages: chatMessages)
+                let response = await openAIService.sendMessage(messages: Array(chatMessageRealmGroup.chatMessagesRealm))
                 guard let receivedOpenAIMessage = response?.choices.first?.message else{
                     print("No receive message")
                     return
                 }
-                let receivedMessage = ChatMessage(id: UUID().uuidString, content:receivedOpenAIMessage.content , dateCreated: Date(), role: receivedOpenAIMessage.role)
+                
+                
+                //Временно убрал дату создания
+                
+                let receivedMessage = ChatMessageRealm(value: ["id":"\(UUID().uuidString)","content": "\(receivedOpenAIMessage.content)", "role": "\(receivedOpenAIMessage.role)"])
                 await MainActor.run{
-                    chatMessages.append(receivedMessage)
+                    //Очень плохая реализация, не забыть исправить
+                    
+                    $chatMessageRealmGroup.chatMessagesRealm.append(receivedMessage)
+                    
+                    
                 }
             }
             
@@ -42,7 +71,7 @@ class ChatViewModel: ObservableObject {
         
     }
     
-
+    
     
     static let sampleMessages = [
         ChatMessage(id: UUID().uuidString, content: "Sample message from user", dateCreated: Date(), role: .user),
@@ -71,7 +100,7 @@ class ChatViewModel: ObservableObject {
                     self.downButtonOpacity = 0.0
                     self.downButtonDisabled = true
                 }
-    
+                
             }
             
         }

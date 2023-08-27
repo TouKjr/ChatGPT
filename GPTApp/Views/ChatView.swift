@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 struct ChatView: View {
     
     @EnvironmentObject private var vm: ChatViewModel
+    
     
     var body: some View {
         
@@ -24,7 +26,7 @@ struct ChatView: View {
                 }
                 .frame(height: 120)
                 .padding(.bottom, 30)
-        
+                
             }
         }
         
@@ -33,20 +35,22 @@ struct ChatView: View {
 
 struct ChatView_Previews: PreviewProvider {
     static var previews: some View {
-        Group{
-            ChatView()
-                .preferredColorScheme(.light)
-                .environmentObject(ChatViewModel())
-            ChatView()
-                .preferredColorScheme(.dark)
-                .environmentObject(ChatViewModel())
-        }
+
+            Group{
+                ChatView()
+                    .preferredColorScheme(.light)
+                    .environmentObject(ChatViewModel())
+                ChatView()
+                    .preferredColorScheme(.dark)
+                    .environmentObject(ChatViewModel())
+            }
+        
     }
 }
 
 extension ChatView {
     
-    private func messageView(message: ChatMessage) -> some View{
+    private func messageView(message: ChatMessageRealm) -> some View{
         HStack{
             if message.role == .user {Spacer()}
             
@@ -69,7 +73,8 @@ extension ChatView {
             ScrollView {
                 
                 LazyVStack{
-                    ForEach(vm.chatMessages, id: \.id) { message in
+                    //Здесь нужно будет вытащить коллекцию в vm, но пока что оставим вот так
+                    ForEach(vm.chatMessageRealmGroup.chatMessagesRealm) { message in
                         messageView(message: message).id(message.id)
                     }
                     

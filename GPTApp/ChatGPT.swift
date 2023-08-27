@@ -11,13 +11,9 @@ import SwiftUI
 struct ChatGPT: App {
     var body: some Scene {
         WindowGroup {
+            
             ChatView()
                 .environmentObject(ChatViewModel())
-            
-            
-//            let realm = ChatMessageRealmGroup.previewRealm
-//            let chatMessageRealmGroup = realm.objects(ChatMessageRealmGroup.self)
-//            ChatMessageViewRealm(chatMessageRealmGroup: chatMessageRealmGroup.first!)
             
         }
     }

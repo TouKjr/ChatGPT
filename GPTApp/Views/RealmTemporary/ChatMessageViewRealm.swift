@@ -7,9 +7,7 @@ struct ChatMessageViewRealm: View {
     
     @State var messageText: String = ""
     
-    //    /// The button to be displayed on the top left.
-    //    var leadingBarButton: AnyView?
-    
+
     var body: some View {
         ZStack{
             VStack{
@@ -49,17 +47,17 @@ struct ChatMessageViewRealm_Previews: PreviewProvider {
 extension ChatMessageViewRealm {
     private func messageView(message: ChatMessageRealm) -> some View{
         HStack{
-            if message.role == SenderRole.user.rawValue {Spacer()}
+            if message.role == .user {Spacer()}
             
             
             Text(message.content)
-                .foregroundColor(message.role == SenderRole.user.rawValue ? .white : Color(Constants.chatEnviromentColors))
+                .foregroundColor(message.role == .user ? .white : Color(Constants.chatEnviromentColors))
                 .padding()
-                .background(message.role == SenderRole.user.rawValue ? .blue.opacity(0.9) : .gray.opacity(0.3))
+                .background(message.role == .user ? .blue.opacity(0.9) : .gray.opacity(0.3))
                 .cornerRadius(16)
             
             
-            if message.role == SenderRole.assistant.rawValue {Spacer()}
+            if message.role == .assistant {Spacer()}
         }
     }
     
