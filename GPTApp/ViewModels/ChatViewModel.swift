@@ -14,7 +14,8 @@ class ChatViewModel: ObservableObject {
     
     
     @ObservedRealmObject var chatMessageRealmGroup: ChatMessageRealmGroup
-    @Published var chatMessages: [ChatMessage] = []
+    @Published var chatMessages = [ChatMessage]()
+    @Published var messagesCount: Int?
     @Published var messageText: String = ""
     @Published var offset = CGFloat.zero
     @Published var currentBottomOfTheChat = CGFloat.zero
@@ -28,6 +29,7 @@ class ChatViewModel: ObservableObject {
         let realm = ChatMessageRealmGroup.previewRealm
         let chatMessageRealmGroupObject = realm.objects(ChatMessageRealmGroup.self)
         self.chatMessageRealmGroup = chatMessageRealmGroupObject.first!
+        self.messagesCount = chatMessageRealmGroupObject.first!.chatMessagesRealm.count
         
     }
     
@@ -35,13 +37,15 @@ class ChatViewModel: ObservableObject {
     func sendMessage(){
         
         
-        // Временно убрал дату создания
+        // Временно убрал дату создания сообщения
         let newMessage = ChatMessageRealm(value: ["id":"\(UUID().uuidString)","content": "\(messageText)", "role": "\(SenderRole.user)"])
+        
         if messageText != "" {
-            //Очень плохая реализация, не забыть исправить
-            //Ситуация такова, что нужно разобраться с тем, как работает write и возвращение realm и как следствие это исправить, скорее всего нужно ввести имплементацию выше в функции
+            
+            
             
             $chatMessageRealmGroup.chatMessagesRealm.append(newMessage)
+            messagesCount = chatMessageRealmGroup.chatMessagesRealm.count
             
             
             
@@ -55,14 +59,14 @@ class ChatViewModel: ObservableObject {
                 }
                 
                 
-                //Временно убрал дату создания
-                
+                // Временно убрал дату создания сообщения
                 let receivedMessage = ChatMessageRealm(value: ["id":"\(UUID().uuidString)","content": "\(receivedOpenAIMessage.content)", "role": "\(receivedOpenAIMessage.role)"])
+                
                 await MainActor.run{
-                    //Очень плохая реализация, не забыть исправить
                     
                     $chatMessageRealmGroup.chatMessagesRealm.append(receivedMessage)
-                    
+                    messagesCount = chatMessageRealmGroup.chatMessagesRealm.count
+            
                     
                 }
             }

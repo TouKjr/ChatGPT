@@ -26,7 +26,7 @@ extension ChatMessageRealmGroup {
     static var previewRealm: Realm {
         
         var realm: Realm
-        let config = Realm.Configuration()
+//        let config = Realm.Configuration()
         do {
             realm = try Realm()
             // Check to see whether the in-memory realm already contains an ItemGroup.

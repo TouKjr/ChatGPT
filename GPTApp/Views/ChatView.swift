@@ -19,6 +19,7 @@ struct ChatView: View {
             VStack {
                 
                 chatWindow
+                    
                 
                 HStack{
                     userTextField
@@ -72,8 +73,9 @@ extension ChatView {
             
             ScrollView {
                 
+                //Провести замену на TableView(?)
                 LazyVStack{
-                    //Здесь нужно будет вытащить коллекцию в vm, но пока что оставим вот так
+        
                     ForEach(vm.chatMessageRealmGroup.chatMessagesRealm) { message in
                         messageView(message: message).id(message.id)
                     }
@@ -98,14 +100,15 @@ extension ChatView {
             }
             
             .coordinateSpace(name: "scroll")
-            .onChange(of: vm.chatMessages.count) { _ in
+            .onChange(of: vm.messagesCount) { _ in
+                
+//                print(vm.messagesCount!)
                 
                 scrollToBottomOfChat(proxy)
-                
-                
-                vm.currentBottomOfTheChat = vm.offset
-                
-                
+            
+            }
+            .onAppear {
+                scrollToBottomOfChat(proxy)
             }
             .onTapGesture {
                 self.endEditing()
@@ -125,6 +128,7 @@ extension ChatView {
             .padding()
             
         }
+        
     }
     
     
@@ -165,9 +169,12 @@ extension ChatView {
     
     
     private func scrollToBottomOfChat(_ proxy: ScrollViewProxy){
+        
         withAnimation {
-            proxy.scrollTo(vm.chatMessages.last?.id, anchor: .bottom)
+            proxy.scrollTo(vm.chatMessageRealmGroup.chatMessagesRealm.last?.id, anchor: .bottom)
         }
+        
+        vm.currentBottomOfTheChat = vm.offset
     }
     
     private var downArrowImageView: some View {
