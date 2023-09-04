@@ -11,7 +11,7 @@ import RealmSwift
 struct ChatView: View {
     
     @EnvironmentObject private var vm: ChatViewModel
-    
+    private let spaceName = "scroll"
     
     var body: some View {
         
@@ -69,11 +69,12 @@ extension ChatView {
     }
     
     private var chatWindow: some View{
+
         ScrollViewReader{ proxy in
             
             ScrollView {
                 
-                //Провести замену на TableView(?)
+               
                 LazyVStack{
         
                     ForEach(vm.chatMessageRealmGroup.chatMessagesRealm) { message in
@@ -84,9 +85,9 @@ extension ChatView {
                     
                     DispatchQueue.main.async {
                         
-                        if vm.offset != -currentUserPosition.frame(in: .named("scroll")).origin.y {
+                        if vm.offset != -currentUserPosition.frame(in: .named(spaceName)).origin.y {
                             
-                            vm.offset = -currentUserPosition.frame(in: .named("scroll")).origin.y
+                            vm.offset = -currentUserPosition.frame(in: .named(spaceName)).origin.y
                             vm.downButtonOnScreenLogic()
                             
                         }
@@ -99,7 +100,7 @@ extension ChatView {
                 
             }
             
-            .coordinateSpace(name: "scroll")
+            .coordinateSpace(name: spaceName)
             .onChange(of: vm.messagesCount) { _ in
                 
 //                print(vm.messagesCount!)
@@ -190,5 +191,7 @@ extension ChatView {
     }
     
     
+    
 }
+
 
