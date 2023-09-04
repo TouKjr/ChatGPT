@@ -17,8 +17,8 @@ class ChatViewModel: ObservableObject {
     @Published var chatMessages = [ChatMessage]()
     @Published var messagesCount: Int?
     @Published var messageText: String = ""
-    @Published var offset = CGFloat.zero
-    @Published var currentBottomOfTheChat = CGFloat.zero
+    @Published var offset: CGSize = .zero
+    @Published var currentBottomOfTheChat: CGSize = .zero
     @Published var downButtonOpacity: Double = 0.0
     @Published var downButtonDisabled: Bool = true
     
@@ -86,25 +86,25 @@ class ChatViewModel: ObservableObject {
     
     
     
-    func downButtonOnScreenLogic() {
+    func downButtonOnScreenLogic(_ isNotReachedTheBottom: Bool) {
         
         DispatchQueue.global().async {
             
-            if self.offset < self.currentBottomOfTheChat {
-                
+            if isNotReachedTheBottom {
+
                 DispatchQueue.main.async {
                     self.downButtonOpacity = 0.85
                     self.downButtonDisabled = false
                 }
-                
-                
+
+
             }else{
-                
+
                 DispatchQueue.main.async {
                     self.downButtonOpacity = 0.0
                     self.downButtonDisabled = true
                 }
-                
+
             }
             
         }

@@ -19,7 +19,7 @@ struct ChatView: View {
             VStack {
                 
                 chatWindow
-                    
+                
                 
                 HStack{
                     userTextField
@@ -36,15 +36,15 @@ struct ChatView: View {
 
 struct ChatView_Previews: PreviewProvider {
     static var previews: some View {
-
-            Group{
-                ChatView()
-                    .preferredColorScheme(.light)
-                    .environmentObject(ChatViewModel())
-                ChatView()
-                    .preferredColorScheme(.dark)
-                    .environmentObject(ChatViewModel())
-            }
+        
+        Group{
+            ChatView()
+                .preferredColorScheme(.light)
+                .environmentObject(ChatViewModel())
+            ChatView()
+                .preferredColorScheme(.dark)
+                .environmentObject(ChatViewModel())
+        }
         
     }
 }
@@ -69,44 +69,50 @@ extension ChatView {
     }
     
     private var chatWindow: some View{
-
+        
         ScrollViewReader{ proxy in
             
             ScrollView {
-                
-               
-                LazyVStack{
-        
-                    ForEach(vm.chatMessageRealmGroup.chatMessagesRealm) { message in
-                        messageView(message: message).id(message.id)
-                    }
+                ChildSizeReader(size: $vm.currentBottomOfTheChat){
                     
-                }.background(GeometryReader { currentUserPosition -> Color in
                     
-                    DispatchQueue.main.async {
+                    
+                    
+                    LazyVStack{
                         
-                        if vm.offset != -currentUserPosition.frame(in: .named(spaceName)).origin.y {
-                            
-                            vm.offset = -currentUserPosition.frame(in: .named(spaceName)).origin.y
-                            vm.downButtonOnScreenLogic()
-                            
+                        ForEach(vm.chatMessageRealmGroup.chatMessagesRealm) { message in
+                            messageView(message: message).id(message.id)
                         }
                         
-                        
-                    }
-                    
-                    return Color.clear
-                })
-                
+                    }.background(
+                        GeometryReader { proxy in
+                            Color.clear.preference(
+                                key: ViewOffsetKey.self,
+                                value: -1 * proxy.frame(in: .named(spaceName)).origin.y
+                            )
+                        }
+                    )
+                    .onPreferenceChange(
+                        ViewOffsetKey.self,
+                        perform: { value in
+//                            print("Current: \(value)")
+//                            print("Height: \(vm.currentBottomOfTheChat.height)")
+                            
+                            if (vm.currentBottomOfTheChat.height - value) < 700  {
+                                vm.downButtonOnScreenLogic(false)
+                            } else {
+                                vm.downButtonOnScreenLogic(true)
+                            }
+                        }
+                    )
+                }
             }
             
             .coordinateSpace(name: spaceName)
             .onChange(of: vm.messagesCount) { _ in
                 
-//                print(vm.messagesCount!)
-                
                 scrollToBottomOfChat(proxy)
-            
+                
             }
             .onAppear {
                 scrollToBottomOfChat(proxy)
@@ -175,7 +181,6 @@ extension ChatView {
             proxy.scrollTo(vm.chatMessageRealmGroup.chatMessagesRealm.last?.id, anchor: .bottom)
         }
         
-        vm.currentBottomOfTheChat = vm.offset
     }
     
     private var downArrowImageView: some View {
