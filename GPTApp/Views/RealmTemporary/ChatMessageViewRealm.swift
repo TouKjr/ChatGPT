@@ -38,7 +38,7 @@ struct ChatMessageViewRealm: View {
 
 struct ChatMessageViewRealm_Previews: PreviewProvider {
     static var previews: some View {
-        let realm = ChatMessageRealmGroup.previewRealm
+        let realm = ChatMessageRealmGroup.CreateRealm
         let chatMessageRealmGroup = realm.objects(ChatMessageRealmGroup.self)
         ChatMessageViewRealm(chatMessageRealmGroup: chatMessageRealmGroup.first!)
     }

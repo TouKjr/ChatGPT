@@ -23,7 +23,11 @@ struct ChatView: View {
                 
                 HStack{
                     userTextField
-                    sendButton
+                    VStack{
+                        sendButton
+                        clearButton
+                    }
+                    
                 }
                 .frame(height: 120)
                 .padding(.bottom, 30)
@@ -115,7 +119,9 @@ extension ChatView {
                 
             }
             .onAppear {
+                
                 scrollToBottomOfChat(proxy)
+                
             }
             .onTapGesture {
                 self.endEditing()
@@ -161,11 +167,19 @@ extension ChatView {
             vm.sendMessage()
             
         } label: {
-            Text("Send")
-                .foregroundColor(Color(Constants.chatTextColors))
-                .padding()
-                .background(Color(Constants.chatEnviromentColors))
-                .cornerRadius(12)
+            ChatButtonTemplate(buttonText: "Send")
+        }
+    }
+    
+    private var clearButton: some View{
+        Button {
+            
+            self.endEditing()
+            vm.clearChatPopUp()
+            
+            
+        } label: {
+            ChatButtonTemplate(buttonText: "Clear")
         }
     }
     

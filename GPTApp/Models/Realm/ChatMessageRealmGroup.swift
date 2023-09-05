@@ -23,10 +23,10 @@ final class ChatMessageRealmGroup: Object, ObjectKeyIdentifiable {
 extension ChatMessageRealmGroup {
     static let chatMessageRealmGroup = ChatMessageRealmGroup(value: ["ownerId": "previewRealm"])
     
-    static var previewRealm: Realm {
+    static var CreateRealm: Realm {
         
         var realm: Realm
-//        let config = Realm.Configuration()
+        
         do {
             realm = try Realm()
             // Check to see whether the in-memory realm already contains an ItemGroup.
@@ -39,7 +39,6 @@ extension ChatMessageRealmGroup {
             } else {
                 try realm.write {
                     realm.add(chatMessageRealmGroup)
-//                    chatMessageRealmGroup.chatMessagesRealm.append(objectsIn: [ChatMessageRealm.chatMessage1, ChatMessageRealm.chatMessage2, ChatMessageRealm.chatMessage3])
                 }
                 print("Realm is located at:", realm.configuration.fileURL!)
                 return realm

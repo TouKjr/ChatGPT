@@ -29,6 +29,7 @@
 		25B6B0592A52C2B800A0DF06 /* OpenAIChatChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25B6B0582A52C2B800A0DF06 /* OpenAIChatChoice.swift */; };
 		25BA763D2A604D3500E8F0F7 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 25BA763C2A604D3500E8F0F7 /* Realm */; };
 		25BA763F2A604D3500E8F0F7 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 25BA763E2A604D3500E8F0F7 /* RealmSwift */; };
+		25FCEC802AA72A1A008FAF63 /* ChatButtonTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FCEC7F2AA72A1A008FAF63 /* ChatButtonTemplate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		25B6B0542A52C29000A0DF06 /* SenderRole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SenderRole.swift; sourceTree = "<group>"; };
 		25B6B0562A52C2A500A0DF06 /* OpenAIChatResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIChatResponse.swift; sourceTree = "<group>"; };
 		25B6B0582A52C2B800A0DF06 /* OpenAIChatChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIChatChoice.swift; sourceTree = "<group>"; };
+		25FCEC7F2AA72A1A008FAF63 /* ChatButtonTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatButtonTemplate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +153,7 @@
 			children = (
 				255524D42A66A4E500371A40 /* RealmTemporary */,
 				259A40AD2A507A99003715E9 /* ChatView.swift */,
+				25FCEC7F2AA72A1A008FAF63 /* ChatButtonTemplate.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -264,6 +267,7 @@
 				25102D652AA47DCD00EBE8E5 /* ChildSizeReader.swift in Sources */,
 				25B6B0572A52C2A500A0DF06 /* OpenAIChatResponse.swift in Sources */,
 				25B6B0532A52C27F00A0DF06 /* OpenAIChatMessage.swift in Sources */,
+				25FCEC802AA72A1A008FAF63 /* ChatButtonTemplate.swift in Sources */,
 				259A40B02A507ADE003715E9 /* ChatMessage.swift in Sources */,
 				25AF1C982A969F39006D83E3 /* ChatMessageRealmGroup.swift in Sources */,
 				259A40BA2A50C8C7003715E9 /* OpenAIService.swift in Sources */,

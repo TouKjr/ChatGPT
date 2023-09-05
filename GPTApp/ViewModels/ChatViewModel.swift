@@ -14,7 +14,7 @@ class ChatViewModel: ObservableObject {
     
     
     @ObservedRealmObject var chatMessageRealmGroup: ChatMessageRealmGroup
-    @Published var chatMessages = [ChatMessage]()
+    //    @Published var chatMessages = [ChatMessage]()
     @Published var messagesCount: Int?
     @Published var messageText: String = ""
     @Published var offset: CGSize = .zero
@@ -26,7 +26,7 @@ class ChatViewModel: ObservableObject {
     
     init() {
         
-        let realm = ChatMessageRealmGroup.previewRealm
+        let realm = ChatMessageRealmGroup.CreateRealm
         let chatMessageRealmGroupObject = realm.objects(ChatMessageRealmGroup.self)
         self.chatMessageRealmGroup = chatMessageRealmGroupObject.first!
         self.messagesCount = chatMessageRealmGroupObject.first!.chatMessagesRealm.count
@@ -45,9 +45,9 @@ class ChatViewModel: ObservableObject {
             
             
             $chatMessageRealmGroup.chatMessagesRealm.append(newMessage)
+            //Переделать на более грамотное решение
+            
             messagesCount = chatMessageRealmGroup.chatMessagesRealm.count
-            
-            
             
             messageText = ""
             
@@ -65,13 +65,48 @@ class ChatViewModel: ObservableObject {
                 await MainActor.run{
                     
                     $chatMessageRealmGroup.chatMessagesRealm.append(receivedMessage)
+                    
+                    //Переделать на более грамотное решение
                     messagesCount = chatMessageRealmGroup.chatMessagesRealm.count
-            
+                    
                     
                 }
             }
             
         }
+        
+    }
+    
+    func clearChatPopUp(){
+        let alert = UIAlertController(title: "Warning", message: "Clear the history of this chat?", preferredStyle: .alert)
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { _ in }
+        
+        let delete = UIAlertAction(title: "Delete", style: .destructive) { _ in
+            
+            let realm = try! Realm()
+            try! realm.write {
+                let allChatMessages = realm.objects(ChatMessageRealm.self)
+                realm.delete(allChatMessages)
+            }
+            
+            //Переделать на более грамотное решение
+            
+            self.messagesCount = self.chatMessageRealmGroup.chatMessagesRealm.count
+            
+        }
+        
+        alert.addAction(cancel)
+        alert.addAction(delete)
+        
+        UIApplication
+            .shared
+            .connectedScenes
+            .compactMap { ($0 as? UIWindowScene)?.keyWindow }
+            .last?.rootViewController?.present(alert, animated: true, completion: {
+                
+            })
+        
         
     }
     
@@ -91,24 +126,25 @@ class ChatViewModel: ObservableObject {
         DispatchQueue.global().async {
             
             if isNotReachedTheBottom {
-
+                
                 DispatchQueue.main.async {
                     self.downButtonOpacity = 0.85
                     self.downButtonDisabled = false
                 }
-
-
+                
+                
             }else{
-
+                
                 DispatchQueue.main.async {
                     self.downButtonOpacity = 0.0
                     self.downButtonDisabled = true
                 }
-
+                
             }
             
         }
     }
+    
     
     
 }
