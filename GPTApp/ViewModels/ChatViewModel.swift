@@ -55,6 +55,14 @@ class ChatViewModel: ObservableObject {
                 let response = await openAIService.sendMessage(messages: Array(chatMessageRealmGroup.chatMessagesRealm))
                 guard let receivedOpenAIMessage = response?.choices.first?.message else{
                     print("No receive message")
+                    let receivedMessage = ChatMessageRealm(value: ["id":"\(UUID().uuidString)","content": "Sorry, something go wrong, try again later", "role": "\(SenderRole.assistant)"])
+                    
+                    $chatMessageRealmGroup.chatMessagesRealm.append(receivedMessage)
+                    
+                    //Переделать на более грамотное решение
+                    messagesCount = chatMessageRealmGroup.chatMessagesRealm.count
+                    
+                    
                     return
                 }
                 

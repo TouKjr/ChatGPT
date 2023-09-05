@@ -61,6 +61,7 @@ extension ChatView {
             
             
             Text(message.content)
+                .textSelection(.enabled)
                 .foregroundColor(message.role == .user ? .white : Color(Constants.chatEnviromentColors))
                 .padding()
                 .background(message.role == .user ? .blue.opacity(0.9) : .gray.opacity(0.3))
