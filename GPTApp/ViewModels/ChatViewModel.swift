@@ -14,13 +14,15 @@ class ChatViewModel: ObservableObject {
     
     
     @ObservedRealmObject var chatMessageRealmGroup: ChatMessageRealmGroup
-    //    @Published var chatMessages = [ChatMessage]()
+
     @Published var messagesCount: Int?
     @Published var messageText: String = ""
     @Published var offset: CGSize = .zero
     @Published var currentBottomOfTheChat: CGSize = .zero
     @Published var downButtonOpacity: Double = 0.0
     @Published var downButtonDisabled: Bool = true
+    @Published var answerGeneratingHUD = false
+
     
     let openAIService = OpenAIService()
     
@@ -31,6 +33,7 @@ class ChatViewModel: ObservableObject {
         self.chatMessageRealmGroup = chatMessageRealmGroupObject.first!
         self.messagesCount = chatMessageRealmGroupObject.first!.chatMessagesRealm.count
         
+    
     }
     
     
@@ -52,6 +55,8 @@ class ChatViewModel: ObservableObject {
             messageText = ""
             
             Task{
+                answerGeneratingHUD.toggle()
+                
                 let response = await openAIService.sendMessage(messages: Array(chatMessageRealmGroup.chatMessagesRealm))
                 guard let receivedOpenAIMessage = response?.choices.first?.message else{
                     print("No receive message")
@@ -62,6 +67,7 @@ class ChatViewModel: ObservableObject {
                     //Переделать на более грамотное решение
                     messagesCount = chatMessageRealmGroup.chatMessagesRealm.count
                     
+                    answerGeneratingHUD.toggle()
                     
                     return
                 }
@@ -76,6 +82,8 @@ class ChatViewModel: ObservableObject {
                     
                     //Переделать на более грамотное решение
                     messagesCount = chatMessageRealmGroup.chatMessagesRealm.count
+                    
+                    answerGeneratingHUD.toggle()
                     
                     
                 }
@@ -117,16 +125,7 @@ class ChatViewModel: ObservableObject {
         
         
     }
-    
-    
-    
-    static let sampleMessages = [
-        ChatMessage(id: UUID().uuidString, content: "Sample message from user", dateCreated: Date(), role: .user),
-        ChatMessage(id: UUID().uuidString, content: "Sample message from gpt", dateCreated: Date(), role: .assistant),
-        ChatMessage(id: UUID().uuidString, content: "Sample message from user", dateCreated: Date(), role: .user),
-        ChatMessage(id: UUID().uuidString, content: "Sample message from gpt", dateCreated: Date(), role: .assistant)
-    ]
-    
+        
     
     
     func downButtonOnScreenLogic(_ isNotReachedTheBottom: Bool) {
@@ -151,6 +150,10 @@ class ChatViewModel: ObservableObject {
             }
             
         }
+    }
+    
+    func endEditing() {
+        UIApplication.shared.endEditing()
     }
     
     
