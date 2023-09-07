@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import RealmSwift
 
-enum SenderRole: String, Codable {
+enum SenderRole: String, Codable, PersistableEnum {
     case system
     case user
     case assistant

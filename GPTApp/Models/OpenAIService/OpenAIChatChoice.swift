@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 struct OpenAIChatChoice: Codable{
     let message: OpenAIChatMessage

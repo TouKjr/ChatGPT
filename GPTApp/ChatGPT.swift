@@ -11,8 +11,10 @@ import SwiftUI
 struct ChatGPT: App {
     var body: some Scene {
         WindowGroup {
+            
             ChatView()
                 .environmentObject(ChatViewModel())
+            
         }
     }
 }
