@@ -21,6 +21,8 @@ class OpenAIService{
             "Authorization":"Bearer \(Constants.openAIAPIKey)"
         ]
         
-        return try? await AF.request(baseURL, method: .post, parameters: body, encoder: .json, headers: headers).serializingDecodable(OpenAIChatResponse.self).value
+    
+        return try? await AF.request(baseURL, method: .post, parameters: body, encoder: .json, headers: headers){$0.timeoutInterval = 600}
+            .serializingDecodable(OpenAIChatResponse.self).value
     }
 }

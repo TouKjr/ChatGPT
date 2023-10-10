@@ -14,12 +14,14 @@ struct ChatWindow: View {
     
     
     var body: some View {
+        
         ScrollViewReader{ proxy in
             
             ScrollView {
-                ChildSizeReader(size: $vm.currentBottomOfTheChat){
+                
+                ChildSizeReader(size: $vm.sizesOfChatWindow){
                     
-                    LazyVStack{
+                    VStack{
                         
                         ForEach(vm.chatMessageRealmGroup.chatMessagesRealm) { message in
                             MessageView(message: message).id(message.id)
@@ -37,10 +39,7 @@ struct ChatWindow: View {
                         ViewOffsetKey.self,
                         perform: { value in
                             
-//                            print("Current: \(value)")
-//                            print("Height: \(vm.currentBottomOfTheChat.height)")
-                            
-                            if (vm.currentBottomOfTheChat.height - value) < 700  {
+                            if (vm.sizesOfChatWindow.height - value) < 700  {
                                 vm.downButtonOnScreenLogic(false)
                             } else {
                                 vm.downButtonOnScreenLogic(true)
@@ -51,26 +50,12 @@ struct ChatWindow: View {
             }
             
             .coordinateSpace(name: spaceName)
-            .onChange(of: vm.messagesCount) { _ in
-                
-                scrollToBottomOfChat(proxy)
-                
-            }
-            .onAppear {
-                
-                scrollToBottomOfChat(proxy)
-                
-            }
-            .onTapGesture {
-                vm.endEditing()
-            }
-            
+            .onChange(of: vm.messagesCount) { _ in scrollToBottomOfChat(proxy)}
+            .onAppear {scrollToBottomOfChat(proxy)}
+            .onTapGesture {vm.endEditing()}
             .overlay(alignment: .bottomTrailing, content: {
-                Button {
-                    
-                    scrollToBottomOfChat(proxy)
-                    
-                } label: {
+                Button {scrollToBottomOfChat(proxy)} 
+            label: {
                     DownArrowImageView()
                 }
                 .disabled(vm.downButtonDisabled)
@@ -89,15 +74,7 @@ struct ChatWindow_Previews: PreviewProvider {
 }
 
 extension ChatWindow {
-    
-    
     private func scrollToBottomOfChat(_ proxy: ScrollViewProxy){
-        
-        withAnimation {
-            proxy.scrollTo(vm.chatMessageRealmGroup.chatMessagesRealm.last?.id, anchor: .bottom)
-        }
-        
+        withAnimation {proxy.scrollTo(vm.chatMessageRealmGroup.chatMessagesRealm.last?.id, anchor: .bottom)}
     }
-    
-    
 }

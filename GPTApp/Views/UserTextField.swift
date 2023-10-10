@@ -12,8 +12,8 @@ struct UserTextField: View {
     @EnvironmentObject private var vm: ChatViewModel
     
     var body: some View {
-        TextEditor(text: $vm.messageText)
-            .frame(width: 260, height: 150)
+        TextEditor(text: $vm.messageText)        
+            .frame(width: ((UIScreen.current?.bounds.size.width ?? 370) * 0.65), height: 150)
             .cornerRadius(12)
             .overlay(content: {
                 RoundedRectangle(cornerRadius: 12)
