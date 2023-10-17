@@ -10,6 +10,8 @@
 		25102D632AA47D9000EBE8E5 /* ViewOffsetKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25102D622AA47D9000EBE8E5 /* ViewOffsetKey.swift */; };
 		25102D652AA47DCD00EBE8E5 /* ChildSizeReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25102D642AA47DCC00EBE8E5 /* ChildSizeReader.swift */; };
 		25102D672AA47DE600EBE8E5 /* SizePreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25102D662AA47DE600EBE8E5 /* SizePreferenceKey.swift */; };
+		251E136E2AD54E9900005718 /* UIScreenBounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251E136D2AD54E9900005718 /* UIScreenBounds.swift */; };
+		251E13702AD89EE900005718 /* ChatListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251E136F2AD89EE900005718 /* ChatListView.swift */; };
 		256293D62A66A2D5009C4BED /* ChatMessageRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256293D52A66A2D5009C4BED /* ChatMessageRealm.swift */; };
 		2598E96C2AA9B12F00D59F49 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2598E96B2AA9B12F00D59F49 /* MessageView.swift */; };
 		2598E96E2AA9B63100D59F49 /* UserTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2598E96D2AA9B63100D59F49 /* UserTextField.swift */; };
@@ -40,6 +42,8 @@
 		25102D622AA47D9000EBE8E5 /* ViewOffsetKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewOffsetKey.swift; sourceTree = "<group>"; };
 		25102D642AA47DCC00EBE8E5 /* ChildSizeReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildSizeReader.swift; sourceTree = "<group>"; };
 		25102D662AA47DE600EBE8E5 /* SizePreferenceKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizePreferenceKey.swift; sourceTree = "<group>"; };
+		251E136D2AD54E9900005718 /* UIScreenBounds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScreenBounds.swift; sourceTree = "<group>"; };
+		251E136F2AD89EE900005718 /* ChatListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListView.swift; sourceTree = "<group>"; };
 		256293D52A66A2D5009C4BED /* ChatMessageRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageRealm.swift; sourceTree = "<group>"; };
 		2598E96B2AA9B12F00D59F49 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		2598E96D2AA9B63100D59F49 /* UserTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTextField.swift; sourceTree = "<group>"; };
@@ -84,6 +88,7 @@
 				25102D622AA47D9000EBE8E5 /* ViewOffsetKey.swift */,
 				25102D642AA47DCC00EBE8E5 /* ChildSizeReader.swift */,
 				25102D662AA47DE600EBE8E5 /* SizePreferenceKey.swift */,
+				251E136D2AD54E9900005718 /* UIScreenBounds.swift */,
 			);
 			path = ViewsUtilities;
 			sourceTree = "<group>";
@@ -157,6 +162,7 @@
 				2598E96D2AA9B63100D59F49 /* UserTextField.swift */,
 				2598E96F2AA9B70B00D59F49 /* DownArrowImageView.swift */,
 				2598E9712AA9C40200D59F49 /* ChatWindow.swift */,
+				251E136F2AD89EE900005718 /* ChatListView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -280,11 +286,13 @@
 				25B6B0572A52C2A500A0DF06 /* OpenAIChatResponse.swift in Sources */,
 				25B6B0532A52C27F00A0DF06 /* OpenAIChatMessage.swift in Sources */,
 				25FCEC802AA72A1A008FAF63 /* ChatButtonTemplate.swift in Sources */,
+				251E13702AD89EE900005718 /* ChatListView.swift in Sources */,
 				25AF1C982A969F39006D83E3 /* ChatMessageRealmGroup.swift in Sources */,
 				259A40BA2A50C8C7003715E9 /* OpenAIService.swift in Sources */,
 				259A40BF2A515F22003715E9 /* OpenAIChatBody.swift in Sources */,
 				259A40AE2A507A99003715E9 /* ChatView.swift in Sources */,
 				2598E9702AA9B70B00D59F49 /* DownArrowImageView.swift in Sources */,
+				251E136E2AD54E9900005718 /* UIScreenBounds.swift in Sources */,
 				25102D632AA47D9000EBE8E5 /* ViewOffsetKey.swift in Sources */,
 				25102D672AA47DE600EBE8E5 /* SizePreferenceKey.swift in Sources */,
 				25B6B0552A52C29000A0DF06 /* SenderRole.swift in Sources */,
